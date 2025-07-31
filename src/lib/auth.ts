@@ -14,7 +14,8 @@ export type AuthUser = {
 // Save user to localStorage (and optionally cookies)
 export function setAuth(user: AuthUser) {
   localStorage.setItem('user', JSON.stringify(user));
-  document.cookie = `token=${user.token}; path=/`;
+  console.log('user token data :: ', user.token);
+  document.cookie = `token=${user.token}; path=/; secure; sameSite=lax`;
 }
 
 // Get user from localStorage
@@ -27,6 +28,7 @@ export function getAuth(): AuthUser | null {
 // Remove user on logout
 export function clearAuth() {
   localStorage.removeItem('user');
+  localStorage.removeItem('ACCESS_TOKEN');
   document.cookie = 'token=; Max-Age=0; path=/';
 }
 
